@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# getzulo/package-action — build with `zulo package build`, upload with the
+# getzulo/zuloone-package-action — build with `zulo package build`, upload with the
 # workflow's GitHub OIDC token exchanged at login.getzulo.com. No stored secret.
 set -euo pipefail
 
@@ -11,7 +11,7 @@ CLI_SHA256_LINUX_X64="2d809986672aeac60830061372da28928fcc64f55f3b11c6a7a47ef6a4
 fail() { echo "::error::$*" >&2; exit 1; }
 
 [ "${RUNNER_OS:-Linux}" = "Linux" ] && [ "${RUNNER_ARCH:-X64}" = "X64" ] \
-  || fail "getzulo/package-action runs on Linux x64 runners (this is ${RUNNER_OS:-?}/${RUNNER_ARCH:-?})."
+  || fail "getzulo/zuloone-package-action runs on Linux x64 runners (this is ${RUNNER_OS:-?}/${RUNNER_ARCH:-?})."
 [ -n "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ] \
   || fail "No GitHub OIDC token available. Give the job 'permissions: id-token: write'."
 command -v jq >/dev/null || fail "jq is required on the runner."
@@ -20,7 +20,7 @@ tmp="${RUNNER_TEMP:-/tmp}/zulo-package-action"
 mkdir -p "$tmp"
 cli="$tmp/zulo"
 if [ ! -x "$cli" ]; then
-  curl -fsSL -o "$cli" "https://github.com/getzulo/package-action/releases/download/${CLI_RELEASE}/zulo-linux-x64" \
+  curl -fsSL -o "$cli" "https://github.com/getzulo/zuloone-package-action/releases/download/${CLI_RELEASE}/zulo-linux-x64" \
     || fail "Could not download the zulo CLI (${CLI_RELEASE})."
   echo "${CLI_SHA256_LINUX_X64}  $cli" | sha256sum -c --quiet - \
     || fail "The downloaded zulo CLI does not match its pinned digest. Refusing to run it."

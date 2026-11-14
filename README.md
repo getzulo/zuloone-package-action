@@ -1,4 +1,4 @@
-# getzulo/package-action
+# getzulo/zuloone-package-action
 
 Builds a ZuloOne package (`.zulopkg`) from your workspace and uploads it to
 the [ZuloOne Lifecycle Portal](https://lcp.getzulo.com) — authenticated by the
@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: version                      # the package is versioned by its model
         run: echo "version=$(jq -r .object.modelVersion AcmeSales/model.json)" >> "$GITHUB_OUTPUT"
-      - uses: getzulo/package-action@v1
+      - uses: getzulo/zuloone-package-action@v1
         with:
           models: AcmeSales,AcmeCommon     # model folders of the workspace
           id: acme-erp                     # the package's id in its project
